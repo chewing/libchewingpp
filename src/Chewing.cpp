@@ -24,12 +24,24 @@ Chewing::Chewing(char *dataDir, char *hashDir, int keyLayout) {
     SetKeyboardLayout(kbLayout);
 }
 
+void Chewing::SetHsuSelectionKeyType(int type)
+{
+    if(type > HSU_SELKEY_TYPE2)
+        cd->config.hsuSelKeyType = HSU_SELKEY_TYPE1;
+    else
+        cd->config.hsuSelKeyType = type;
+}
+
 void Chewing::SetKeyboardLayout(int kb)
 {
     kbLayout = kb;
-    if (kb < 0 || kb >=KB_TYPE_NUM) kb=0;
-    if (kb==KB_HSU) SelKey("asdfjkl789");
-    else if (kb==KB_DVORAK_HSU) SelKey("aoeuhtn789");
+    if (kb==KB_HSU) {
+        if(cd->config.hsuSelKeyType == HSU_SELKEY_TYPE2) {
+            SelKey("asdfzxcv89");
+        } else {
+            SelKey("asdfjkl789");
+        }
+    } else if (kb==KB_DVORAK_HSU) SelKey("aoeuhtn789");
     else SelKey("1234567890");
     cd->zuinData.kbtype=kb;
     SetConfig(cd, &config);

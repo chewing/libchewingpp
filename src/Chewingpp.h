@@ -23,6 +23,7 @@ class Chewing
   Chewing(char *dataDir, char *hashDir, int keyLayout=KB_DEFAULT);
 
   void SetKeyboardLayout(int kb);
+  void SetHsuSelectionKeyType(int type);
 
   // Debugging-only retuine.
   void Dump();
