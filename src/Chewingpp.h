@@ -34,6 +34,8 @@ class Chewing
   int Backspace();
   int Tab();
   int ShiftLeft();
+  int ShiftRight();
+  int ShiftSpace();
   int Right();
   int Left();
   int Up();

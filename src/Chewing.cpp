@@ -55,6 +55,8 @@ int Chewing::Delete()    { return OnKeyDel((void*)cd,co); }
 int Chewing::Backspace() { return OnKeyBackspace((void*)cd,co); }
 int Chewing::Tab()       { return OnKeyTab((void*)cd,co); }
 int Chewing::ShiftLeft() { return OnKeyShiftLeft((void*)cd,co); }
+int Chewing::ShiftRight() { return OnKeyShiftRight((void*)cd,co); }
+int Chewing::ShiftSpace() { return OnKeyShiftSpace((void*)cd,co); }
 int Chewing::Right()     { return OnKeyRight((void*)cd, co);}
 int Chewing::Left()      { return OnKeyLeft((void*)cd, co);}
 int Chewing::Up()        { return OnKeyUp((void*)cd, co);}
