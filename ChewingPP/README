@@ -1,6 +1,14 @@
 
-This directory is only for XCode builder.  It includes a
-libchewing-1.0.0.dylib in order to build ChewingPP framework directly.
+This directory is only for XCode builder, and it only works on OSX platform.
+It's developed only on Panther with Xcode 1.5.
+
+You should have libchewing installed into /usr/local/ in order to make
+it work.
+
+This would build a "ChewingPP Framework", and should be installed
+into /Library/Frameworks/
+
+OVIMChewing depends on this library to work.
 
 Cheers,
 Kang-min "Gugod" Liu
