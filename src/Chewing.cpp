@@ -27,7 +27,7 @@ Chewing::Chewing(char *dataDir, char *hashDir, int keyLayout) {
 void Chewing::SetKeyboardLayout(int kb)
 {
     kbLayout = kb;
-    if (kb < 0 || kb >7) kb=0;
+    if (kb < 0 || kb >=KB_TYPE_NUM) kb=0;
     if (kb==KB_HSU) SelKey("asdfjkl789");
     else if (kb==KB_DVORAK_HSU) SelKey("aoeuhtn789");
     else SelKey("1234567890");
