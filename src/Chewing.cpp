@@ -163,6 +163,14 @@ int Chewing::TotalChoice() {
   return (co->pci->nTotalChoice);
 }
 
+int Chewing::TotalPage() {
+    return (co->pci->nPage);
+}
+
+int Chewing::CurrentPage() {
+    return (co->pci->pageNo);
+}
+
 /*
  * Return the i-th candidate wchar (WCH_SIZE bytes), i starts from 0.
  * User MUST free() the return value of this sub-routine,
