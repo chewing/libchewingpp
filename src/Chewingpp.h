@@ -72,6 +72,8 @@ class Chewing
   // CandidateWindow-related routines
   int Candidate();
   int ChoicePerPage();
+  int TotalChoice();
+
   // Return the i-th selection wchar, i >= 0.
   char* Selection(int i);
 
