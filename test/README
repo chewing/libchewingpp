@@ -1,0 +1,22 @@
+這是測試 libchewing 的目錄。
+目前假設 libchewing 安裝的 prefix 在 /usr/local，
+詞庫檔在 /usr/local/share/chewing , hash.dat 的目錄在 /tmp
+
+* 安裝 libchewing 時所用的參數:
+
+	./configure --prefix=/usr/local
+	make 
+	make install
+
+Cheers,
+Kang-min "Gugod" Liu
+
+I added some parameters in the Makefile to use gprof and gcov for profiling.
+For example,
+
+	make
+	gprof Chewing
+	gcov -bcf testingchewing.cpp
+
+Regards,
+Tien-jien "Barabbas" Jiang

@@ -1,0 +1,203 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		AB4CD49F073A7B10007A1536 = {
+			children = (
+				AB4CD4B4073A7C4E007A1536,
+				AB4CD4B1073A7BBC007A1536,
+				AB4CD4AF073A7BAC007A1536,
+				AB4CD4AD073A7B25007A1536,
+			);
+			isa = PBXGroup;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		AB4CD4A1073A7B10007A1536 = {
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		AB4CD4A2073A7B10007A1536 = {
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+		AB4CD4A3073A7B10007A1536 = {
+			buildSettings = {
+			};
+			buildStyles = (
+				AB4CD4A1073A7B10007A1536,
+				AB4CD4A2073A7B10007A1536,
+			);
+			hasScannedForEncodings = 0;
+			isa = PBXProject;
+			mainGroup = AB4CD49F073A7B10007A1536;
+			productRefGroup = AB4CD4AD073A7B25007A1536;
+			projectDirPath = "";
+			targets = (
+				AB4CD4AB073A7B25007A1536,
+			);
+		};
+		AB4CD4A7073A7B25007A1536 = {
+			buildActionMask = 2147483647;
+			files = (
+				AB4CD4B2073A7BBC007A1536,
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4CD4A8073A7B25007A1536 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4CD4A9073A7B25007A1536 = {
+			buildActionMask = 2147483647;
+			files = (
+				AB4CD4B0073A7BAC007A1536,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4CD4AA073A7B25007A1536 = {
+			buildActionMask = 2147483647;
+			files = (
+				AB4CD4B5073A7C4E007A1536,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB4CD4AB073A7B25007A1536 = {
+			buildPhases = (
+				AB4CD4A7073A7B25007A1536,
+				AB4CD4A8073A7B25007A1536,
+				AB4CD4A9073A7B25007A1536,
+				AB4CD4AA073A7B25007A1536,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LIBRARY_SEARCH_PATHS = /Users/gugod/dev/libchewingpp/ChewingPP;
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = ChewingPP;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = ChewingPP;
+			productName = ChewingPP;
+			productReference = AB4CD4AC073A7B25007A1536;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>ChewingPP</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.ChewingPP</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.framework";
+		};
+		AB4CD4AC073A7B25007A1536 = {
+			explicitFileType = wrapper.framework;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = ChewingPP.framework;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AB4CD4AD073A7B25007A1536 = {
+			children = (
+				AB4CD4AC073A7B25007A1536,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		AB4CD4AF073A7BAC007A1536 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = Chewing.cpp;
+			path = ../src/Chewing.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		AB4CD4B0073A7BAC007A1536 = {
+			fileRef = AB4CD4AF073A7BAC007A1536;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		AB4CD4B1073A7BBC007A1536 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Chewingpp.h;
+			path = ../src/Chewingpp.h;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		AB4CD4B2073A7BBC007A1536 = {
+			fileRef = AB4CD4B1073A7BBC007A1536;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		AB4CD4B4073A7C4E007A1536 = {
+			isa = PBXFileReference;
+			lastKnownFileType = "compiled.mach-o.dylib";
+			name = libchewing.dylib;
+			path = /usr/local/lib/libchewing.1.0.0.dylib;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		AB4CD4B5073A7C4E007A1536 = {
+			fileRef = AB4CD4B4073A7C4E007A1536;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+	};
+	rootObject = AB4CD4A3073A7B10007A1536;
+}

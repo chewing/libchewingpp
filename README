@@ -1,0 +1,25 @@
+## Copyright 2004 Liu Kang-min
+##
+## Author: gugod@gugod.org
+## Keywords: chewing, libchewing, C++
+
+
+This library provide C++ wrapper to jserv's libchewing
+(http://jserv.sayya.org/wiki/index.php/Qooing).
+
+ Chewingpp.h - Object prototype
+ Chewing.cpp - Object implementation
+
+In order to build this library, you'll need to install libchewing first.
+After that, you may try
+
+ make
+ make test
+
+to see if it works.
+
+Cheers
+Kang-min "Gugod" Liu
+
+
+
