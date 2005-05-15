@@ -65,6 +65,8 @@ class Chewing
   int   BufferLen();
 
   int CursorPos();
+  int PointStart();
+  int PointEnd();
   int KeystrokeRtn();
   int KeystrokeIgnore();
 

@@ -1,0 +1,43 @@
+2005-05-15  Lukhnos D. Liu <lukhnos@seed.net.tw>
+
+	* src/Chewing.cpp, src/Chewingpp.h 
+	(Chewing::PointStart) (Chewing::PointEnd):
+	New member functions. With the two functions, an IM framework
+	can draw an appropriate "underline" when user enters add-phrase
+	mode.
+
+2005-02-20  Kang-min Liu  <gugod@gugod.org>
+
+	* Support two different hsu selection keys.
+
+2005-02-19  Kang-min Liu  <gugod@gugod.org>
+
+	* use KB_TYPE_NUM instead of some numbers.
+
+2005-02-15  Kang-min Liu  <gugod@gugod.org>
+
+	* API: TotalPage() and CurrentPage()
+
+2005-02-13  Kang-min Liu  <gugod@gugod.org>
+
+	* API: TotalChoice() to give total number of candidates.
+
+2005-02-13  Kang-min Liu  <gugod@gugod.org>
+
+	* now this is really annoeying, always failed to link correct
+	libchewing.dylib. decide to abandand it since building a 
+	framework is really easy.
+
+2004-12-12  Kang-min Liu  <gugod@gugod.org>
+
+	* Add interface:
+	- Shift-left, Shift-right (front-end of AddTsi)
+	- ShiftSpace (output full-width space)
+
+2004-12-12  Kang-min Liu  <gugod@gugod.org>
+
+	* just documents
+
+2004-12-07  Kang-min Liu  <gugod@gugod.org>
+
+	* setup repository layout

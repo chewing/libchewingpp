@@ -151,6 +151,14 @@ int Chewing::CursorPos() {
   return co->chiSymbolCursor;
 }
 
+int Chewing::PointStart() {
+  return co->PointStart;
+}
+
+int Chewing::PointEnd() {
+  return co->PointEnd;
+}
+
 int Chewing::KeystrokeRtn() {
   return co->keystrokeRtn;
 }
