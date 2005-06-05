@@ -3,9 +3,9 @@
 #include "Chewingpp.h"
 
 Chewing::Chewing(char *dataDir, char *hashDir, int keyLayout) {
-    cf = (ChewingConf *) malloc( sizeof( ChewingConf ) );
-    cd = (ChewingData *) malloc( sizeof( ChewingData ) );
-    co = (ChewingOutput *) malloc( sizeof( ChewingOutput ) );
+    cf = (ChewingConf *) calloc( 1, sizeof( ChewingConf ) );
+    cd = (ChewingData *) calloc( 1, sizeof( ChewingData ) );
+    co = (ChewingOutput *) calloc( 1, sizeof( ChewingOutput ) );
     kbLayout = keyLayout;
 
     cf->inp_cname = "Chewing";
@@ -44,6 +44,8 @@ void Chewing::SetKeyboardLayout(int kb)
     } else if (kb==KB_DVORAK_HSU) SelKey("aoeuhtn789");
     else SelKey("1234567890");
     cd->zuinData.kbtype=kb;
+    // Always use space as candidate key for SpaceChewing style.
+    cd->config.bSpaceAsSelection=1;
     SetConfig(cd, &config);
 }
 

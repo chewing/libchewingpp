@@ -1,4 +1,12 @@
-2005-05-15  Lukhnos D. Liu <lukhnos@seed.net.tw>
+2005-06-03  Lukhnos D. Liu  <lukhnos@seed.net.tw>
+
+	* src/Chewing.cpp
+	(Chewing::Chewing):
+	Replace malloc with calloc for the sake of proper memory allocation.
+	(Chewing::SetKeyboardLayout):
+	Always use space as candidate key for SpaceChewing style.
+	
+2005-05-15  Lukhnos D. Liu  <lukhnos@seed.net.tw>
 
 	* src/Chewing.cpp, src/Chewingpp.h 
 	(Chewing::PointStart) (Chewing::PointEnd):
