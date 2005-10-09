@@ -24,6 +24,11 @@ Chewing::Chewing(char *dataDir, char *hashDir, int keyLayout) {
     SetKeyboardLayout(kbLayout);
 }
 
+Chewing::~Chewing()
+{
+    TerminateChewing();
+}
+
 void Chewing::SetHsuSelectionKeyType(int type)
 {
     if(type > HSU_SELKEY_TYPE2)

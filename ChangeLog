@@ -1,3 +1,9 @@
+2005-10-10  Jim Huang  <jserv@kaffe.org>
+
+	* src/Chewingpp.h,
+	src/Chewing.cpp (Chewing::~Chewing):
+	New method. Add TerminateChewing call.
+
 2005-06-03  Lukhnos D. Liu  <lukhnos@seed.net.tw>
 
 	* src/Chewing.cpp

@@ -20,6 +20,7 @@ class Chewing
 
  public:
   Chewing();
+  virtual ~Chewing();
   Chewing(char *dataDir, char *hashDir, int keyLayout=KB_DEFAULT);
 
   void SetKeyboardLayout(int kb);
