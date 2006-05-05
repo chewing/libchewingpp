@@ -10,12 +10,11 @@ install:
 framework: $(OBJS) Chewingpp.h
 	mkdir -p ChewingPP.framework/Headers/
 	cp Chewingpp.h ChewingPP.framework/Headers/
-	g++ -lchewing -dynamiclib -o ChewingPP.framework/ChewingPP Chewing.o
+	g++ -g -Wall -L/usr/local/lib -lchewing -dynamiclib -o ChewingPP.framework/ChewingPP Chewing.o
 
 clean:
 	rm -f *~ Chewing $(OBJS) $(GOAL)
 	rm -rf ChewingPP.framework/
 
 %.o: %.cpp
-	g++ -c $<
-
+	g++ -g -Wall -c -I/usr/local/include  $<

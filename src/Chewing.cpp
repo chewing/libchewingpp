@@ -2,43 +2,47 @@
 
 #include "Chewingpp.h"
 
-Chewing::Chewing(char *dataDir, char *hashDir, int keyLayout) {
-    cf = (ChewingConf *) calloc( 1, sizeof( ChewingConf ) );
-    cd = (ChewingData *) calloc( 1, sizeof( ChewingData ) );
-    co = (ChewingOutput *) calloc( 1, sizeof( ChewingOutput ) );
-    kbLayout = keyLayout;
+// Class Methods: Init and Terminate
 
-    cf->inp_cname = "Chewing";
-    cf->inp_ename = "Chewing";
-    cf->kb_type   = kbLayout;
-
-    ReadTree( dataDir );
-    InitChar( dataDir );
-    InitDict( dataDir );
-    ReadHash( hashDir );
-    InitChewing(cd,cf);
-
-    config.selectAreaLen = 40;
-    config.maxChiSymbolLen = 16;
-
-    SetKeyboardLayout(kbLayout);
+void Chewing::Init(const char *dataDir, const char *hashDir) {
+    chewing_Init(dataDir, hashDir);
 }
 
-Chewing::~Chewing()
-{
-    TerminateChewing();
+void Chewing::Terminate() {
+    chewing_Terminate();
+}
+
+
+// Object methods. All delegate to chewing context api.
+Chewing::Chewing() {
+    char selKey_define[ 12 ] = "1234567890\0";
+
+    ctx = chewing_new();
+    chewing_set_KBType( ctx, chewing_KBStr2Num( "KB_DEFAULT" ) );
+
+    /* Fill the configuration values */
+    config.selectAreaLen = 20;
+    config.maxChiSymbolLen = 16;
+    
+    for ( int i = 0; i < 10; i++ )
+        config.selKey[ i ] = selKey_define[ i ];
+    /* Enable configurations */
+    chewing_Configure( ctx, &config );
+}
+
+Chewing::~Chewing() {
+    chewing_free(ctx);
 }
 
 void Chewing::SetHsuSelectionKeyType(int type)
 {
-    if(type > HSU_SELKEY_TYPE2)
-        cd->config.hsuSelKeyType = HSU_SELKEY_TYPE1;
-    else
-        cd->config.hsuSelKeyType = type;
 }
 
 void Chewing::SetKeyboardLayout(int kb)
 {
+    chewing_set_KBType(ctx, kb);
+
+#if 0
     kbLayout = kb;
     if (kb==KB_HSU) {
         if(cd->config.hsuSelKeyType == HSU_SELKEY_TYPE2) {
@@ -48,10 +52,10 @@ void Chewing::SetKeyboardLayout(int kb)
         }
     } else if (kb==KB_DVORAK_HSU) SelKey("aoeuhtn789");
     else SelKey("1234567890");
-    cd->zuinData.kbtype=kb;
     // Always use space as candidate key for SpaceChewing style.
-    cd->config.bSpaceAsSelection=1;
-    SetConfig(cd, &config);
+#endif
+
+    chewing_Configure( ctx, &config );
 }
 
 /*
@@ -65,137 +69,91 @@ char Chewing::SelKey(int i) {
 
 void Chewing::SelKey(char *selkey) {
   for (int i = 0; i < 10;i++ ) config.selKey[ i ] = selkey[i];
-  SetConfig( cd, &config );
+  chewing_Configure( ctx, &config );
 }
 
-int Chewing::Space()     { return OnKeySpace((void*)cd,co); }
-int Chewing::Enter()     { return OnKeyEnter((void*)cd,co); }
-int Chewing::Delete()    { return OnKeyDel((void*)cd,co); }
-int Chewing::Backspace() { return OnKeyBackspace((void*)cd,co); }
-int Chewing::Tab()       { return OnKeyTab((void*)cd,co); }
-int Chewing::ShiftLeft() { return OnKeyShiftLeft((void*)cd,co); }
-int Chewing::ShiftRight() { return OnKeyShiftRight((void*)cd,co); }
-int Chewing::ShiftSpace() { return OnKeyShiftSpace((void*)cd,co); }
-int Chewing::Right()     { return OnKeyRight((void*)cd, co);}
-int Chewing::Left()      { return OnKeyLeft((void*)cd, co);}
-int Chewing::Up()        { return OnKeyUp((void*)cd, co);}
-int Chewing::Down()      { return OnKeyDown((void*)cd, co);}
-int Chewing::Home()      { return OnKeyHome((void*)cd, co);}
-int Chewing::End()       { return OnKeyEnd((void*)cd, co);}
-int Chewing::Capslock()  { return OnKeyCapslock((void*)cd, co);}
-int Chewing::DoubleTab() { return OnKeyDblTab((void*)cd, co);}
-int Chewing::Esc()   { return OnKeyEsc((void*)cd,co); }
-int Chewing::CtrlOption(unsigned int code) { return OnKeyCtrlOption((void*)cd,(int)code, co);}
-int Chewing::CtrlNum(unsigned int code)    { return OnKeyCtrlNum((void*)cd, (int)code,co);}
-int Chewing::Key(unsigned int code) {
-    SetKeyboardLayout(kbLayout);
-    return OnKeyDefault((void*)cd,(int)code,co);
-}
+int Chewing::Space()      { return chewing_handle_Space( ctx ); }
+int Chewing::Enter()      { return chewing_handle_Enter( ctx ); }
+int Chewing::Delete()     { return chewing_handle_Del( ctx ); }
+int Chewing::Backspace()  { return chewing_handle_Backspace( ctx ); }
+int Chewing::Tab()        { return chewing_handle_Tab( ctx ); }
+int Chewing::ShiftLeft()  { return chewing_handle_ShiftLeft( ctx ); }
+int Chewing::ShiftRight() { return chewing_handle_ShiftRight( ctx ); }
+int Chewing::ShiftSpace() { return chewing_handle_ShiftSpace( ctx ); }
+int Chewing::Right()      { return chewing_handle_Right( ctx );}
+int Chewing::Left()       { return chewing_handle_Left( ctx );}
+int Chewing::Up()         { return chewing_handle_Up( ctx );}
+int Chewing::Down()       { return chewing_handle_Down( ctx );}
+int Chewing::Home()       { return chewing_handle_Home( ctx );}
+int Chewing::End()        { return chewing_handle_End( ctx );}
+int Chewing::Capslock()   { return chewing_handle_Capslock( ctx );}
+int Chewing::DoubleTab()  { return chewing_handle_DblTab( ctx );}
+int Chewing::Esc()        { return chewing_handle_Esc( ctx ); }
+
+int Chewing::CtrlOption(int code) { return chewing_handle_CtrlOption(ctx, code); }
+int Chewing::CtrlNum(int code)    { return chewing_handle_CtrlNum(ctx, code); }
+int Chewing::Key(int code) { return chewing_handle_Default(ctx, code); }
 
 /*
   CommitReady() returns TRUE if it currnet input state
   is at the "end-of-a-char".
  */
 int Chewing::CommitReady() {
-  return (co->keystrokeRtn & KEYSTROKE_COMMIT);
+    return chewing_commit_Check( ctx );
 }
 
 /*
-  CommitStr() retrun currnet commit string, regardless
+  CommitString() retrun currnet commit string, regardless
   current input state.
 
   Alwasy returns a char pointer, caller must free it.
  */
 
-char* Chewing::CommitStr() {
-    return CommitStr(0,co->nCommitStr-1);
-}
-
-char* Chewing::CommitStr(int from) {
-    return CommitStr(from,co->nCommitStr-1);
-}
-
-char* Chewing::CommitStr(int from, int to) {
-  char *s = (char*) calloc (1 + co->nCommitStr, sizeof(char) * WCH_SIZE);
-  if(from >= 0 && to < co->nCommitStr ) {
-    for(int i=from; i <= to ; i++)
-      strcat(s,(char*)(co->commitStr[i].s));
-  }
-  return s;
+char* Chewing::CommitString() {
+    return chewing_commit_String( ctx );
 }
 
 /*
   Always returns a char pointer, caller must free it.
  */
-char* Chewing::ZuinStr() {
-  char *s;
-  s = (char*) calloc ( 1+ ZUIN_SIZE ,sizeof(char) * WCH_SIZE );
-  for(int i = 0; i < ZUIN_SIZE ; i++)
-    if(co->zuinBuf[i].s) strcat(s,(char*)(co->zuinBuf[i].s));
-  return s;
-}
-
-int Chewing::BufferLen() {
-  return co->chiSymbolBufLen;
-}
-
-char* Chewing::Buffer() { return Buffer(0,BufferLen() - 1); }
-char* Chewing::Buffer(int from) {
-  return Buffer(from, BufferLen() - 1);
-}
-char* Chewing::Buffer(int from,int to) {
-  char *s;
-  s = (char*)calloc( 1+ BufferLen(), sizeof(char) * WCH_SIZE);
-  if(from >= 0 && to < BufferLen() ) {
-    for(int i = from; i <= to; i++) {
-      strcat(s,(char*)(co->chiSymbolBuf[i].s));
-    }
-  }
-  return s;
+char* Chewing::ZuinString(int *zuin_count) {
+    return chewing_zuin_String( ctx, zuin_count);
 }
 
 int Chewing::CursorPos() {
-  return co->chiSymbolCursor;
-}
-
-int Chewing::PointStart() {
-  return co->PointStart;
-}
-
-int Chewing::PointEnd() {
-  return co->PointEnd;
+    return (int)chewing_cursor_Current( ctx );
 }
 
 int Chewing::KeystrokeRtn() {
-  return co->keystrokeRtn;
+  return ctx->output->keystrokeRtn;
 }
 
 int Chewing::KeystrokeIgnore() {
-  return (co->keystrokeRtn & KEYSTROKE_IGNORE);
+    return chewing_keystroke_CheckIgnore(ctx);
 }
 
 int Chewing::ChineseMode() {
-  return (cd->bChiSym == CHINESE_MODE);
+  return (ctx->data->bChiSym == CHINESE_MODE);
 }
 
 int Chewing::Candidate() {
-  return (co->pci->nPage);
+  return (ctx->output->pci->nPage);
 }
 
 int Chewing::ChoicePerPage() {
-  return (co->pci->nChoicePerPage);
+  return (ctx->output->pci->nChoicePerPage);
 }
 
 int Chewing::TotalChoice() {
-  return (co->pci->nTotalChoice);
+  return (ctx->output->pci->nTotalChoice);
 }
 
 int Chewing::TotalPage() {
-    return (co->pci->nPage);
+    return (ctx->output->pci->nPage);
 }
 
 int Chewing::CurrentPage() {
-    return (co->pci->pageNo);
+    return (ctx->output->pci->pageNo);
 }
 
 /*
@@ -205,10 +163,10 @@ int Chewing::CurrentPage() {
  */
 char* Chewing::Selection(int i) {
   char *s;
-  int no = co->pci->pageNo * ChoicePerPage() + i;
+  int no = ctx->output->pci->pageNo * ChoicePerPage() + i;
 
-  if(i >=0 && no < co->pci->nTotalChoice)
-    s = strdup(co->pci->totalChoiceStr[no]);
+  if(i >=0 && no < ctx->output->pci->nTotalChoice)
+    s = strdup(ctx->output->pci->totalChoiceStr[no]);
   else
     s = strdup("");
 
@@ -218,17 +176,19 @@ char* Chewing::Selection(int i) {
 // A debugging purpose Dumping routing. Output current inputed Zuin
 // and Commit string.
 void Chewing::Dump() {
-  fprintf(stderr,"nCommitStr = %d\n",co->nCommitStr);
-  
-  fprintf(stderr,"zuin: ");
-  for(int i=0;i<ZUIN_SIZE;i++) 
-    if(co->zuinBuf[i].s)
-      fprintf(stderr,"%s",co->zuinBuf[i].s);
-  fprintf(stderr,"\n");
-  
-  fprintf(stderr,"commit: ");
-  for(int i=0;i<co->nCommitStr;i++) 
-    fprintf(stderr,"%s",co->commitStr[i].s);
-  fprintf(stderr,"\n");
-  fprintf(stderr,"-----\n");
+    char *s;
+    int c;
+    fprintf(stderr,"nCommitStr = %d\n",ctx->output->nCommitStr);
+
+    fprintf(stderr,"zuin: ");
+    s = ZuinString(&c);
+    fprintf(stderr, "%s\n", s);
+    free(s);
+   
+    fprintf(stderr,"commit: ");
+    s = CommitString();
+    fprintf(stderr, "%s\n-----\n", s);
+    free(s);
 }
+
+

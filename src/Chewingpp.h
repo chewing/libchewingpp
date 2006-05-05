@@ -8,26 +8,22 @@
 
 class Chewing
 {
-  ChewingData   *cd;
-  ChewingOutput *co;
-  ChewingConf   *cf;
-  ConfigData    config;
-  char*         selkey;
-
-  char*         hash;
-  char*         data;
-  int           kbLayout;
+  ChewingContext *ctx;
+  ChewingConfigData config;
+  int kbLayout;
 
  public:
+  // Class Methods. Can be called only once per process.
+  static void Init(const char *dataDir, const char *hashDir);
+  static void Terminate();
+
+  // Object methods.
   Chewing();
   virtual ~Chewing();
-  Chewing(char *dataDir, char *hashDir, int keyLayout=KB_DEFAULT);
 
+  // Configuration
   void SetKeyboardLayout(int kb);
   void SetHsuSelectionKeyType(int type);
-
-  // Debugging-only retuine.
-  void Dump();
 
   int Space();
   int Esc();
@@ -45,19 +41,17 @@ class Chewing
   int Home();
   int End();
   int Capslock();
-  int Key(unsigned int code);
-  int CtrlNum(unsigned int code);
-  int CtrlOption(unsigned int code);
+  int Key(int code);
+  int CtrlNum(int code);
+  int CtrlOption(int code);
   int DoubleTab();
 
   // Return the i-th selection key, i >= 0.
   char SelKey(int i);
   void SelKey(char* selkey);
 
-  char* ZuinStr();
-  char* CommitStr();
-  char* CommitStr(int from);
-  char* CommitStr(int from, int to);
+  char* ZuinString(int *zuin_count);
+  char* CommitString();
   int   CommitReady();
 
   char* Buffer();
@@ -66,8 +60,6 @@ class Chewing
   int   BufferLen();
 
   int CursorPos();
-  int PointStart();
-  int PointEnd();
   int KeystrokeRtn();
   int KeystrokeIgnore();
 
@@ -83,7 +75,10 @@ class Chewing
   // Return the i-th selection wchar, i >= 0.
   char* Selection(int i);
 
+
+  // Debugging routine
+  void Dump();
 };
 
-#endif /* _CHEWING_H */
+#endif /* _CHEWINGPP_H */
 

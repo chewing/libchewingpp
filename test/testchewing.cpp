@@ -102,7 +102,11 @@ main(void) {
   int i;
   int ctrl_shifted;
   char *s;
-  Chewing *im = new Chewing("/usr/local/share/chewing","/tmp");
+
+  // Init;
+  Chewing::Init("/usr/local/share/chewing","/tmp");
+
+  Chewing *im = new Chewing();
 
   while(1) {
     i = get_keystroke();
@@ -166,6 +170,7 @@ main(void) {
   }
 
  end:
+  Chewing::Terminate();
   delete im;
   return 0;
 }
